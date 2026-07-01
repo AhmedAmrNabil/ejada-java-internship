@@ -1,0 +1,6 @@
+compile:
+    javac Main.java
+
+[default]
+run: compile
+    java Main

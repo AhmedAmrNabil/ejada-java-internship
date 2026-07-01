@@ -17,6 +17,11 @@
     ];
   };
 
+  packages = with pkgs; [
+    just
+    just-lsp # lsp for Justfiles
+  ];
+
   enterShell = ''
     #bash
     mkdir -p .vscode
