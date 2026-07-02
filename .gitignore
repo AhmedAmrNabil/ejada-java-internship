@@ -34,6 +34,7 @@ devenv.local.yaml
 
 # direnv
 .direnv
+.envrc
 
 # pre-commit
 .pre-commit-config.yaml
