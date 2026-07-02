@@ -47,3 +47,6 @@ This repo uses [devenv](https://devenv.sh/) to manage the development environmen
 ```bash
 devenv shell
 ```
+## Links
+
+The videos I watched to learn Java are listed in [VIDEOS.md](VIDEOS.md).
