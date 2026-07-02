@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  name = "ejada";
   languages.java = {
     enable = true;
     jdk.package = pkgs.jdk25;
