@@ -5,3 +5,5 @@ inputs:
 
 # If you're using non-OSS software, you can set allow_unfree to true.
 allow_unfree: true
+
+shell: fish
