@@ -1,0 +1,28 @@
+compile-p1:
+    javac Project1/Main.java
+    javac Project1/LibrarySystem/*.java
+
+clean-p1:
+    rm -f Project1/*.class
+    rm -f Project1/LibrarySystem/*.class
+
+run-p1: compile-p1
+    java -cp . Project1.Main
+
+compile-p2:
+    javac Project2/Main.java
+
+clean-p2:
+    rm -f Project2/*.class
+
+[default]
+run-p2: compile-p2
+    java -cp . Project2.Main
+
+clean: clean-p1 clean-p2
+
+run: 
+    echo "Running project 1"
+    just run-p1
+    echo "Running project 2"
+    just run-p2
