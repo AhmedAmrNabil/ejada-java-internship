@@ -1,0 +1,16 @@
+compile-p1:
+    javac -d bin Project1/**/*.java
+    javac -d bin Project1/*.java
+
+clean-p1:
+    rm -f bin/
+
+run-p1 +args="Project1/accounts.csv": compile-p1
+    java -cp ./bin Project1.Main {{args}}
+
+[default]
+run:
+    echo "Running project 1"
+    just run-p1
+
+clean: clean-p1
