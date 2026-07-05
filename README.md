@@ -47,6 +47,26 @@ This repo uses [devenv](https://devenv.sh/) to manage the development environmen
 ```bash
 devenv shell
 ```
+
+> [!NOTE]
+> if you are running nixos, then sql developer extension won't work with non-fhsenv vscode
+> so you will need to run vscode in fhsenv mode
+> thats why I added it to the packages in devenv.nix, so you can run `devenv shell` and then run `code .` to open vscode in fhsenv mode.
+
+To run the database setup, run:
+
+```bash
+devenv up --mode all
+```
+
+this will start the database container and run the init-db task to create the app user and the app schema.
+
+To run the database itself later, run:
+
+```bash
+devenv up
+```
+
 ## Links
 
 The videos I watched to learn Java are listed in [VIDEOS.md](VIDEOS.md).
