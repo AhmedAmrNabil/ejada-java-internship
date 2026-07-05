@@ -2,15 +2,23 @@ compile-p1:
     javac -d bin Project1/**/*.java
     javac -d bin Project1/*.java
 
-clean-p1:
-    rm -f bin/
-
 run-p1 +args="Project1/accounts.csv": compile-p1
-    java -cp ./bin Project1.Main {{args}}
+    java -cp ./bin Project1.Main {{ args }}
+
+compile-p2:
+    # javac -d bin Project2/**/*.java
+    javac -d bin Project2/*.java
+
+run-p2 +args="Project2/accounts.csv": compile-p2
+    java -cp ./bin Project2.Main {{ args }}
+
 
 [default]
 run:
-    echo "Running project 1"
-    just run-p1
+    # echo "Running project 1"
+    # just run-p1
+    echo "Running project 2"
+    just run-p2
 
-clean: clean-p1
+clean:
+    rm -f bin/
