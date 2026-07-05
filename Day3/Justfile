@@ -1,13 +1,11 @@
 compile-p1:
-    javac -d bin Project1/**/*.java
-    javac -d bin Project1/*.java
+    javac -d bin $(find Project1 -name "*.java")
 
 run-p1 +args="Project1/accounts.csv": compile-p1
     java -cp ./bin Project1.Main {{ args }}
 
 compile-p2:
-    # javac -d bin Project2/**/*.java
-    javac -d bin Project2/*.java
+    javac -d bin $(find Project2 -name "*.java")
 
 run-p2 +args="Project2/accounts.csv": compile-p2
     java -cp ./bin Project2.Main {{ args }}
@@ -21,4 +19,4 @@ run:
     just run-p2
 
 clean:
-    rm -f bin/
+    rm -rf bin/
