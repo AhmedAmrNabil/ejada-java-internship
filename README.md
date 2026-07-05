@@ -36,9 +36,10 @@ As we get more advanced, we will swich from a single java file to multiple ones 
 
 ## Progress log
 
-| Day | Topic                                                      | Notes                                           |
-| --- | ---------------------------------------------------------- | ----------------------------------------------- |
-| 1   | Basic Java syntax (variables, data types, arrays, strings) | Created a simple student managment sytem in cli |
+| Day | Topic                                                                                                                          | Notes                                                                                           |
+| --- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| 1   | Basic Java syntax (variables, data types, arrays, strings)                                                                     | Created a simple student managment sytem in cli                                                 |
+| 2   | Object-oriented programming (static members, encapsulation, inheritance, polymorphism, abstract classes, interfaces, packages) | Built a library management system and an employee hierarchy with polymorphic salary calculation |
 
 ## Setup
 
