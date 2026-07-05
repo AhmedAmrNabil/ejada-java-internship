@@ -69,4 +69,4 @@ devenv up
 
 ## Links
 
-The videos I watched to learn Java are listed in [VIDEOS.md](VIDEOS.md).
+The videos I watched to learn Java are listed in [JAVAVIDEOS.md](JAVAVIDEOS.md).
