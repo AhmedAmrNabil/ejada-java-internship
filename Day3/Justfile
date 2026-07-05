@@ -1,22 +1,21 @@
-compile-p1:
+_compile-p1:
     javac -d bin $(find Project1 -name "*.java")
 
-run-p1 +args="Project1/accounts.csv": compile-p1
+# Run project 1 (Mini banking system)
+run-p1 +args="Project1/accounts.csv": _compile-p1
     java -cp ./bin Project1.Main {{ args }}
 
-compile-p2:
+_compile-p2:
     javac -d bin $(find Project2 -name "*.java")
 
-run-p2 +args="Project2/accounts.csv": compile-p2
-    java -cp ./bin Project2.Main {{ args }}
+# Run Project 2 (Http server)
+run-p2: _compile-p2
+    java -cp ./bin Project2.Main
 
 
 [default]
 run:
-    # echo "Running project 1"
-    # just run-p1
-    echo "Running project 2"
-    just run-p2
+    just -l
 
 clean:
     rm -rf bin/
