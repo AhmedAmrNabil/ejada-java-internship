@@ -5,17 +5,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.HashMap;
 
 import Project2.http.model.HttpRequest;
 import Project2.http.model.HttpResponse;
-import Project2.http.model.HttpStatus;
+import Project2.http.router.Router;
 
 public class ClientHandler implements Runnable {
 	private final Socket client;
+	private final Router router;
 
-	public ClientHandler(Socket client) {
+	public ClientHandler(Socket client, Router router) {
 		this.client = client;
+		this.router = router;
 	}
 
 	@Override
@@ -29,10 +30,7 @@ public class ClientHandler implements Runnable {
 			if (req == null)
 				return;
 
-			String responseBody = "{\"status\":\"ok\"}";
-			var resHeader = new HashMap<String, String>();
-			resHeader.put("Connection", "Close");
-			HttpResponse res = new HttpResponse(HttpStatus.OK, resHeader, responseBody);
+			HttpResponse res = router.route(req);
 			out.print(res.toHttpString());
 			out.flush();
 
