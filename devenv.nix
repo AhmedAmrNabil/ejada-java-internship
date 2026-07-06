@@ -8,7 +8,8 @@ let
   oracleAppUser = "ejadatestapp";
   oracleAppPwd = "verysecureejadapassword";
   oraclePdb = "FREEPDB1";
-  sqlplus = "docker exec -i oracle26ai sqlplus -s";
+  oracleDBContainerName = "oracle26ai";
+  sqlplus = "docker exec -i ${oracleDBContainerName} sqlplus -s";
 
   pkgsUnstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
 in
@@ -22,8 +23,9 @@ in
 
   processes.oracle = {
     exec = ''
-      docker stop oracle26ai 2>/dev/null || true
-      docker run --rm --name oracle26ai \
+      #bash
+      docker stop ${oracleDBContainerName} 2>/dev/null || true
+      docker run --rm --name ${oracleDBContainerName} \
         -p 1521:1521 -p 5500:5500 \
         -e ORACLE_PWD=${oracleSysPwd} \
         -v oracle-data:/opt/oracle/oradata \
@@ -31,12 +33,13 @@ in
     '';
 
     process-compose = {
-      shutdown.command = "docker stop oracle26ai";
+      shutdown.command = "docker stop ${oracleDBContainerName}";
     };
 
     # Wait for Oracle to be ready
     ready.exec = ''
-      status=$(docker inspect --format='{{.State.Health.Status}}' oracle26ai 2>/dev/null || echo "starting")
+      #bash
+      status=$(docker inspect --format='{{.State.Health.Status}}' ${oracleDBContainerName} 2>/dev/null || echo "starting")
       [ "$status" = "healthy" ]
     '';
   };
@@ -63,12 +66,19 @@ in
     after = [ "devenv:processes:oracle@ready" ];
   };
 
-  packages = with pkgs; [
-    just
-    just-lsp # lsp for Justfiles
-  ] ++( with pkgsUnstable; [
-    vscode-fhs
-  ]);
+  packages =
+    with pkgs;
+    [
+      just
+      just-lsp # lsp for Justfiles
+      (pkgs.writeShellScriptBin "sqlplus" ''
+        #bash
+        exec docker exec -it ${oracleDBContainerName} sqlplus ${oracleAppUser}/${oracleAppPwd}@//localhost:1521/${oraclePdb} "$@"
+      '')
+    ]
+    ++ (with pkgsUnstable; [
+      vscode-fhs
+    ]);
 
   enterShell = ''
     #bash
