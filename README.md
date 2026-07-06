@@ -40,6 +40,7 @@ As we get more advanced, we will swich from a single java file to multiple ones 
 | --- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
 | 1   | Basic Java syntax (variables, data types, arrays, strings)                                                                     | Created a simple student managment sytem in cli                                                 |
 | 2   | Object-oriented programming (static members, encapsulation, inheritance, polymorphism, abstract classes, interfaces, packages) | Built a library management system and an employee hierarchy with polymorphic salary calculation |
+| 3   | Exception handling, collection api,stream api, threads and synchronizations                                                    | Built a bank CLI with custom exceptions and a tiny tcp server                                   |
 
 ## Setup
 
