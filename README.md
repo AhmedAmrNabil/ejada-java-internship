@@ -71,3 +71,4 @@ devenv up
 ## Links
 
 The videos I watched to learn Java are listed in [JAVAVIDEOS.md](JAVAVIDEOS.md).
+for the database videos, check [DBVIDEOS.md](DBVIDEOS.md).

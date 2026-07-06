@@ -1,4 +1,4 @@
-# Videos Per Day
+# Java Videos In the first 3 days
 
 ## Day 1
 
