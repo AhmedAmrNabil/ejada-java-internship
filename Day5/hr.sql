@@ -52,9 +52,7 @@ SELECT
     NVL(COMMISSION_PCT, 0) AS COMMISSION_PCT
 FROM employees
 
-SELECT
-    first_name || ' (' || instr(UPPER(first_name), UPPER('A')) || ')',
-    substr(TRIM(d.department_name), 1, 5) AS dept_prefix
+SELECT first_name || ' (' || instr(UPPER(first_name), UPPER('A')) || ')', substr(TRIM(d.department_name), 1, 5) AS dept_prefix
 FROM employees
     JOIN departments d ON employees.department_id = d.department_id
 
@@ -94,3 +92,40 @@ GROUP BY
 HAVING
     employee_count > 1
 ORDER BY average_salary DESC;
+
+SELECT d.department_name, NVL2(
+        e.first_name, e.first_name || ' ' || e.last_name, 'No manager'
+    ) AS manager_name
+FROM departments d
+    LEFT JOIN employees e ON d.manager_id = e.employee_id;
+
+SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    d.department_name,
+    l.city AS location_city,
+    c.COUNTRY_NAME AS country_name
+FROM
+    employees e
+    INNER JOIN departments d ON e.department_id = d.department_id
+    INNER JOIN locations l ON l.location_id = d.location_id
+    INNER JOIN countries c ON c.country_id = l.country_id
+
+SELECT
+    e.first_name || ' ' || e.last_name AS employee_name,
+    e2.first_name || ' ' || e2.last_name AS manager_name
+FROM employees e
+    RIGHT OUTER JOIN employees e2 ON e.manager_id = e2.employee_id
+ORDER BY employee_name, manager_name;
+
+SELECT *
+FROM EMPLOYEES e
+WHERE
+    e.salary > (
+        SELECT avg(salary) AS average_salary
+        FROM employees
+    )
+INTERSECT
+SELECT *
+FROM EMPLOYEES e
+WHERE
+    e.hire_date > to_date('2015-01-01', 'YYYY-MM-DD');
