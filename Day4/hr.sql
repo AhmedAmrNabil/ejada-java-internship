@@ -1,3 +1,4 @@
+-- Active: 1783324735509@@@443@HR
 -- See: https://github.com/oracle-samples/db-sample-schemas/tree/main/human_resources for the original HR schema
 
 SELECT

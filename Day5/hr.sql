@@ -1,3 +1,4 @@
+-- Active: 1783324735509@@@443@HR
 -- practice on some sql functions
 
 -- count employees in each department sorted by employee count in descending order and department name in ascending order
