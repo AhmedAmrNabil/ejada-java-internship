@@ -110,7 +110,7 @@
 
 [Tutorial#53  Count and Sum  Aggregate Function in Oracle SQL Database| Group by Function in SQL](https://www.youtube.com/watch?v=RJvISbFjUmA)
 
-[Oracle SQL Tutorial#54 Group by in oracle |  Deep dive Database](https://www.youtube.com/watch?v=BFMtWIvj6j0)
+[Tutorial#54 Group by in oracle |  Deep dive Database](https://www.youtube.com/watch?v=BFMtWIvj6j0)
 
 [Tutorial#55  Having Clause in Oracle SQL Database| Having Clause in SQL](https://www.youtube.com/watch?v=faOAQ9648M0)
 
