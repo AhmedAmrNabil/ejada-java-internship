@@ -1,0 +1,17 @@
+
+services:
+  db:
+    build: ./db
+    container_name: ${DB_CONTAINER_NAME}
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_APP_USER=${DB_USERNAME}
+      - ORACLE_APP_PWD=${DB_PASSWORD}
+      - ORACLE_PWD=${DB_SYSTEM_PASSWORD}
+    volumes:
+        - db-data:/opt/oracle/oradata
+
+volumes:
+  db-data:
