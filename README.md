@@ -8,12 +8,20 @@ Learn something new every day and reinforce it by building a small, self-contain
 
 ## Structure
 
-Each day gets its own folder, numbered sequentially:
+Day1-5 each get their own folder, numbered sequentially:
 
 ```
 DayX/
 ├── Main.java   # the code for that day
 └── Justfile    # compile & run commands
+```
+Starting from Day 6, work will move to the `hr-demo/` Maven project instead of a new `DayX/` folder each day, as Day6 is the starter template for the Spring Boot project. All subsequent days will iterate on it rather than creating new top-level folders:
+```
+hr-demo/
+├── pom.xml
+├── src/main/java/com/global/hr/   # controllers, services, etc.
+├── src/main/resources/             # application.yml, i18n, templates
+└── src/test/java/...
 ```
 
 Repo root also includes:
@@ -75,4 +83,7 @@ devenv up
 ## Links
 
 The videos I watched to learn Java are listed in [JAVAVIDEOS.md](JAVAVIDEOS.md).
-for the database videos, check [DBVIDEOS.md](DBVIDEOS.md).
+
+For the database videos, check [DBVIDEOS.md](DBVIDEOS.md).
+
+For the Spring Boot videos, check [SPRINGBOOTVIDEOS.md](SPRINGBOOTVIDEOS.md).
