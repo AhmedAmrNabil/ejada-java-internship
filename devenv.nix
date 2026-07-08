@@ -1,13 +1,16 @@
 {
+  config,
   inputs,
   pkgs,
   ...
 }:
 let
-  oracleSysPwd = "PlaceholderPassword";
-  oracleAppUser = "ejadatestapp";
-  oracleAppPwd = "verysecureejadapassword";
-  oraclePdb = "FREEPDB1";
+  oracleSysPwd = config.env.DB_SYSTEM_PASSWORD;
+  oracleAppUser = config.env.DB_USERNAME;
+  oracleAppPwd = config.env.DB_PASSWORD;
+  oraclePdb = config.env.DB_SERVICE_NAME;
+  oracleHost = config.env.DB_HOST;
+  oraclePort = config.env.DB_PORT;
   oracleDBContainerName = "oracle26ai";
   sqlplus = "docker exec -i ${oracleDBContainerName} sqlplus -s";
 
@@ -15,6 +18,7 @@ let
 in
 {
   name = "ejada";
+  dotenv.enable = true;
   languages.java = {
     enable = true;
     jdk.package = pkgs.jdk25;
@@ -48,7 +52,7 @@ in
     exec = ''
       #bash
       #!/usr/bin/env bash
-      ${sqlplus} system/${oracleSysPwd}@//localhost:1521/${oraclePdb} <<SQL
+      ${sqlplus} system/${oracleSysPwd}@//${oracleHost}:${oraclePort}/${oraclePdb} <<SQL
         WHENEVER SQLERROR EXIT SQL.SQLCODE;
         DECLARE
           v_count NUMBER;
@@ -73,7 +77,11 @@ in
       just-lsp # lsp for Justfiles
       (pkgs.writeShellScriptBin "sqlplus" ''
         #bash
-        exec docker exec -it ${oracleDBContainerName} sqlplus ${oracleAppUser}/${oracleAppPwd}@//localhost:1521/${oraclePdb} "$@"
+        exec docker exec -it ${oracleDBContainerName} sqlplus ${oracleAppUser}/${oracleAppPwd}@//${oracleHost}:${oraclePort}/${oraclePdb} "$@"
+      '')
+      (pkgs.writeShellScriptBin "sqlplus-system" ''
+        #bash
+        exec docker exec -it ${oracleDBContainerName} sqlplus system/${oracleSysPwd}@//${oracleHost}:${oraclePort}/${oraclePdb} "$@"
       '')
     ]
     ++ (with pkgsUnstable; [
