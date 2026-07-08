@@ -82,8 +82,8 @@ devenv up
 
 ## Links
 
-The videos I watched to learn Java are listed in [JAVAVIDEOS.md](JAVAVIDEOS.md).
+The videos I watched to learn Java are listed in [JAVAVIDEOS.md](docs/JAVAVIDEOS.md).
 
-For the database videos, check [DBVIDEOS.md](DBVIDEOS.md).
+For the database videos, check [DBVIDEOS.md](docs/DBVIDEOS.md).
 
-For the Spring Boot videos, check [SPRINGBOOTVIDEOS.md](SPRINGBOOTVIDEOS.md).
+For the Spring Boot videos, check [SPRINGBOOTVIDEOS.md](docs/SPRINGBOOTVIDEOS.md).
