@@ -43,6 +43,7 @@ As we get more advanced, we will swich from a single java file to multiple ones 
 | 3   | Exception handling, collection api,stream api, threads and synchronizations                                                    | Built a bank CLI with custom exceptions and a tiny tcp server                                   |
 | 4   | SQL                                                                                                                            | main.sql file to test sql queries and DDL,DML statemets                                         |
 | 5   | SQL functions, constraints, joins, subqueries, and set operators                                                               | Expanded the SQL practice scripts with more advanced query patterns                             |
+| 6   | Java web frameworks, Servlets, Spring framework and Spring Boot                                                                | Intilized Springboot template with logging,i18n and monitoring                                  |
 
 ## Setup
 
