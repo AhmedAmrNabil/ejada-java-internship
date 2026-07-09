@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/employees")
@@ -37,4 +39,11 @@ public class EmployeeController {
 		log.info("/employees/{} endpoint called", id);
 		return employeeRepository.findById(id);
 	}
+
+	@PostMapping
+	public String postEmployee(@RequestBody Employee employee) {
+		employeeRepository.insert(employee);
+		return "Employee added successfully";
+	}
+
 }
