@@ -2,8 +2,11 @@ package com.global.hr.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.hr.dto.request.CreateEmployeeRequest;
 import com.global.hr.entity.Employee;
 import com.global.hr.service.EmployeeService;
+
+import jakarta.validation.Valid;
 
 import java.net.URI;
 import java.util.List;
@@ -43,9 +46,9 @@ public class EmployeeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Employee> postEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> postEmployee(@Valid @RequestBody CreateEmployeeRequest employeeRequest) {
 
-		Employee savedEmployee = employeeService.addEmployee(employee);
+		Employee savedEmployee = employeeService.addEmployee(employeeRequest);
 		URI location = URI.create("/employees/" + savedEmployee.getId());
 
 		return ResponseEntity

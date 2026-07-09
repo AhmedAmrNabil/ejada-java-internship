@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.global.hr.dto.request.CreateEmployeeRequest;
 import com.global.hr.entity.Employee;
+import com.global.hr.error.DuplicateResourceException;
 import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.EmployeeRepository;
 
@@ -30,6 +33,28 @@ public class EmployeeService {
 		return employeeRepository.save(employee);
 	}
 
+	public Employee addEmployee(Employee employee) {
+		log.info("Adding employee: {}", employee);
+		try {
+			return employeeRepository.save(employee);
+		} catch (DataIntegrityViolationException e) {
+			throw new DuplicateResourceException("error.employee.duplicate", employee.getEmail());
+		}
+	}
+
+	public Employee addEmployee(CreateEmployeeRequest employeeRequest) {
+		log.info("Adding employee: {}", employeeRequest);
+		Employee employee = new Employee();
+		employee.setFirstName(employeeRequest.firstName());
+		employee.setLastName(employeeRequest.lastName());
+		employee.setEmail(employeeRequest.email());
+		employee.setPhoneNumber(employeeRequest.phoneNumber());
+		employee.setHireDate(employeeRequest.hireDate());
+		employee.setJobId(employeeRequest.jobId());
+		employee.setSalary(employeeRequest.salary());
+		return addEmployee(employee);
+	}
+
 	public Employee findById(long id) {
 		log.info("Finding employee with id: {}", id);
 		return employeeRepository.findById(id)
@@ -46,8 +71,4 @@ public class EmployeeService {
 		return employeeRepository.findAll();
 	}
 
-	public Employee addEmployee(Employee employee) {
-		log.info("adding employee: {}", employee);
-		return employeeRepository.save(employee);
-	}
 }
