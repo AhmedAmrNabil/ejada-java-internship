@@ -11,6 +11,12 @@ spring:
     url: jdbc:oracle:thin:@${DB_HOST}:${DB_PORT}/${DB_SERVICE_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 60000
+      max-lifetime: 90000
+      idle-timeout: 60000
   sql:
     init:
       mode: always
