@@ -1,4 +1,7 @@
 spring:
+  web:
+    error:
+      include-stacktrace: never
   application:
     name: hr-demo
   devtools:

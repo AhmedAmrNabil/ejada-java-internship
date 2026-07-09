@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.global.hr.entity.Employee;
+import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.EmployeeRepository;
 
 @Service
@@ -31,7 +32,8 @@ public class EmployeeService {
 
 	public Employee findById(long id) {
 		log.info("Finding employee with id: {}", id);
-		return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+		return employeeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("error.employee.notfound", Long.valueOf(id).toString()));
 	}
 
 	public List<Employee> findByFirstName(String firstName) {
