@@ -3,16 +3,11 @@ package com.global.hr.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.global.hr.entity.Employee;
-import com.global.hr.repository.EmployeeRepository;
+import com.global.hr.service.EmployeeService;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,55 +21,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-	private EmployeeRepository employeeRepository;
+	private EmployeeService employeeService;
 
-	private Logger log = LoggerFactory.getLogger(EmployeeController.class);
-
-	public EmployeeController(EmployeeRepository employeeRepository) {
-		this.employeeRepository = employeeRepository;
+	public EmployeeController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<Employee>> getEmployees() {
-		log.info("/employees endpoint called");
-		return ResponseEntity.ok(employeeRepository.findAll(Pageable.unpaged()));
+	public ResponseEntity<List<Employee>> getEmployees() {
+		return ResponseEntity.ok(employeeService.findAll());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable long id) {
-		log.info("/employees/{} endpoint called", id);
-		Optional<Employee> employee = employeeRepository.findById(id);
-		if (employee.isPresent()) {
-			return ResponseEntity.ok(employee.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		return ResponseEntity.ok(employeeService.findById(id));
 	}
 
 	@GetMapping("/search/{firstName}")
 	public ResponseEntity<List<Employee>> getEmployeesByFirstName(@PathVariable String firstName) {
-		log.info("GET /employees/search/{} endpoint called", firstName);
-		return ResponseEntity.ok(employeeRepository.findByFirstName(firstName));
+		return ResponseEntity.ok(employeeService.findByFirstName(firstName));
 	}
 
 	@PostMapping
 	public ResponseEntity<Employee> postEmployee(@RequestBody Employee employee) {
-		log.info("POST /employees endpoint called with employee: {}", employee);
-		Employee savedEmployee = employeeRepository.save(employee);
+
+		Employee savedEmployee = employeeService.addEmployee(employee);
 		URI location = URI.create("/employees/" + savedEmployee.getId());
-		return ResponseEntity.created(location).body(savedEmployee);
+
+		return ResponseEntity
+				.created(location)
+				.body(savedEmployee);
 	}
 
 	@PutMapping
-	public Employee putEmployee(@RequestBody Employee employee) {
-		log.info("PUT /employees endpoint called with employee: {}", employee);
-		return employeeRepository.save(employee);
+	public ResponseEntity<Employee> putEmployee(@RequestBody Employee employee) {
+		return ResponseEntity.ok(employeeService.updateEmployee(employee));
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteEmployee(@PathVariable long id) {
-		log.info("DELETE /employees/{} endpoint called", id);
-		employeeRepository.deleteById(id);
+		employeeService.deleteEmployeeById(id);
 	}
 
 }
