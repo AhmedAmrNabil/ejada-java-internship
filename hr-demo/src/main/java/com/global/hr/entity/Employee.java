@@ -7,6 +7,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(name = "Employee", description = "Represents an employee in the organization")
 @Table("EMPLOYEES")
 public class Employee {
 	@Id

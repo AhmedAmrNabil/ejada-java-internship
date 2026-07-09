@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ApiError(
-		String message,
-		int status,
-		List<FieldError> errors // null when it's not a validation error
-) {
+		@Schema(example = "Validation failed") String message,
+		@Schema(example = "400") int status,
+		@Schema(description = "Validation errors") List<FieldError> errors) {
 }
