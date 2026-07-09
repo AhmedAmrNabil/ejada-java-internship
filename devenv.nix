@@ -62,7 +62,18 @@ in
       '.["java.configuration.runtimes"] = [
         { "name": "JavaSE-25", "path": $jdkPath }
       ]
-      | .["java.jdt.ls.java.home"] = $jdkPath' \
+      | .["java.jdt.ls.java.home"] = $jdkPath
+      | .["spring-boot.ls.java.home"] = $jdkPath
+      | .["spring-boot.ls.java.vmargs"] = [
+          "-XX:+UseParallelGC",
+          "-XX:GCTimeRatio=4",
+          "-XX:AdaptiveSizePolicyWeight=90",
+          "-Dsun.zip.disableMemoryMapping=true",
+          "-Xmx8G",
+          "-Xms100m",
+          "-Xlog:disable",
+          "-XX:ActiveProcessorCount=1"
+        ]' \
       .vscode/settings.json > .vscode/settings.json.tmp \
       && mv .vscode/settings.json.tmp .vscode/settings.json
   '';
