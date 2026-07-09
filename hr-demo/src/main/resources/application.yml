@@ -20,6 +20,8 @@ server:
   port: 8080
 
 logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){faint} %clr(%5p) %clr(%-29.29logger{29}){cyan}: %msg%n"
   file:
     name: ${logging.file.path}/hr-demo.log
     path: logs
