@@ -13,5 +13,20 @@ services:
     volumes:
         - db-data:/opt/oracle/oradata
 
+  hr-demo:
+    build: ./hr-demo
+    container_name: hr-demo
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=1521
+      - DB_SERVICE_NAME=${DB_SERVICE_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   db-data:
