@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.global.hr.model.Employee;
+import com.global.hr.repository.mapper.EmployeeMapper;
 
 @Repository
 public class EmployeeRepository {
@@ -20,13 +21,13 @@ public class EmployeeRepository {
 	public Employee findById(long id) {
 		return jdbcTemplate.queryForObject(
 				"SELECT * FROM employees WHERE employee_id = ?",
-				BeanPropertyRowMapper.newInstance(Employee.class),
+				new EmployeeMapper(),
 				id);
 	}
 
 	public List<Employee> findAll() {
 		return jdbcTemplate.query(
 				"SELECT * FROM employees",
-				BeanPropertyRowMapper.newInstance(Employee.class));
+				new EmployeeMapper());
 	}
 }
