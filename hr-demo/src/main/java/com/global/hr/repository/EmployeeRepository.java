@@ -2,13 +2,14 @@ package com.global.hr.repository;
 
 import java.util.List;
 
-import com.global.hr.model.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface EmployeeRepository {
-	Employee findById(long id);
-	List<Employee> findAll();
-	int count();
-	void insert(Employee employee);
-	void update(Employee employee);
-	void delete(long id);
+import com.global.hr.entity.Employee;
+
+public interface EmployeeRepository extends ListCrudRepository<Employee, Long> {
+	List<Employee> findByFirstName(String firstName);
+
+	Page<Employee> findAll(Pageable pageable);
 }

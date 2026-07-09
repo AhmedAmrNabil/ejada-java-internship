@@ -1,9 +1,16 @@
-package com.global.hr.model;
+package com.global.hr.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("EMPLOYEES")
 public class Employee {
+	@Id
+	@Column("EMPLOYEE_ID")
 	private long id;
 	private String firstName;
 	private String lastName;
