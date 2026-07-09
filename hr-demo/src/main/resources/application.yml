@@ -49,3 +49,6 @@ management:
       exposure:
         include:
           - "*"
+
+application-description: HR Management REST API
+application-version: 0.0.1
