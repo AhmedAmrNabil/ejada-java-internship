@@ -12,14 +12,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(name = "Employee", description = "Represents an employee in the organization")
@@ -34,26 +31,22 @@ public class Employee {
 	@Column(name = "EMPLOYEE_ID")
 	private long id;
 
-	@NotBlank
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	private String firstName;
 
-	@NotBlank
-	@Column(length = 50)
+	@Column(length = 50, nullable = false)
 	private String lastName;
 
-	@NotBlank
-	@Email
-	@Column(length = 100)
+	@Column(length = 100, nullable = false)
 	private String email;
 
 	@Column(length = 20)
 	private String phoneNumber;
 
-	@NotNull
+	@Column(nullable = false)
 	private LocalDate hireDate;
 
-	@Digits(integer = 6, fraction = 2)
+	@Column(precision = 8, scale = 2)
 	private BigDecimal salary;
 
 	@ManyToOne(optional = false)
