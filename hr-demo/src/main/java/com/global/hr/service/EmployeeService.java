@@ -2,6 +2,8 @@ package com.global.hr.service;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.ConstraintViolationException.ConstraintKind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.global.hr.dto.request.CreateEmployeeRequest;
+import com.global.hr.entity.Department;
 import com.global.hr.entity.Employee;
 import com.global.hr.error.DuplicateResourceException;
 import com.global.hr.error.ResourceNotFoundException;
@@ -40,7 +43,18 @@ public class EmployeeService {
 		try {
 			return employeeRepository.save(employee);
 		} catch (DataIntegrityViolationException e) {
-			throw new DuplicateResourceException("error.employee.duplicate", employee.getEmail());
+			// TODO: better handle different foreign key constraints
+			if (e.getCause() instanceof ConstraintViolationException cve) {
+				ConstraintKind constraintKind = cve.getKind();
+				if (constraintKind == ConstraintKind.UNIQUE) {
+					throw new DuplicateResourceException("error.employee.duplicate", employee.getEmail());
+				}
+				if (constraintKind == ConstraintKind.FOREIGN_KEY) {
+					throw new ResourceNotFoundException("error.department.notfound",
+							Long.valueOf(employee.getDepartment().getId()).toString());
+				}
+			}
+			throw e;
 		}
 	}
 
@@ -52,8 +66,10 @@ public class EmployeeService {
 		employee.setEmail(employeeRequest.email());
 		employee.setPhoneNumber(employeeRequest.phoneNumber());
 		employee.setHireDate(employeeRequest.hireDate());
-		employee.setJobId(employeeRequest.jobId());
 		employee.setSalary(employeeRequest.salary());
+		Department department = new Department();
+		department.setId(employeeRequest.departmentId());
+		employee.setDepartment(department);
 		return addEmployee(employee);
 	}
 
@@ -76,6 +92,11 @@ public class EmployeeService {
 	public Page<Employee> findAll(Pageable pageable) {
 		log.info("Finding all employees with pagination: {}", pageable);
 		return employeeRepository.findAll(pageable);
+	}
+
+	public Page<Employee> findByDepartmentId(long departmentId, Pageable pageable) {
+		log.info("Finding employees with department id: {} and pagination: {}", departmentId, pageable);
+		return employeeRepository.findByDepartmentId(departmentId, pageable);
 	}
 
 }

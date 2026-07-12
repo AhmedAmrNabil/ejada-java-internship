@@ -18,7 +18,7 @@ public record CreateEmployeeRequest(
 		@NotBlank(message = "{error.validation.employee.phoneNumber.blank}") String phoneNumber,
 
 		@NotNull(message = "{error.validation.employee.hireDate.blank}") LocalDate hireDate,
-		@NotBlank(message = "{error.validation.employee.jobId.blank}") String jobId,
 
-		@NotNull @Positive(message = "{error.validation.employee.salary.positive}") BigDecimal salary) {
+		@NotNull @Positive(message = "{error.validation.employee.salary.positive}") BigDecimal salary,
+		@NotNull(message = "{error.validation.employee.departmentId.blank}") Long departmentId) {
 }

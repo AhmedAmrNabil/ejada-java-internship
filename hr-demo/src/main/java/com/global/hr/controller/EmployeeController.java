@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,10 +45,14 @@ public class EmployeeController {
 		this.employeeService = employeeService;
 	}
 
-	@Operation(summary = "Get all employees")
+	@Operation(summary = "Get all employees")	
 	@GetMapping
-	public ResponseEntity<Page<Employee>> getEmployees(Pageable pageable) {
+	public ResponseEntity<Page<Employee>> getEmployees(@RequestParam(required = false) Long departmentId,
+			Pageable pageable) {
 		log.info("Fetching employees with pagination: {}", pageable);
+		if (departmentId != null) {
+			return ResponseEntity.ok(employeeService.findByDepartmentId(departmentId, pageable));
+		}
 		return ResponseEntity.ok(employeeService.findAll(pageable));
 	}
 
