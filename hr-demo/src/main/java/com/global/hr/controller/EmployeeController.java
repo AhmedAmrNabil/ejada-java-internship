@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 import java.util.List;
@@ -30,17 +31,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Tag(name = "Employee Management", description = "APIs for managing employees")
 @RestController
 @RequestMapping("/employees")
+@Slf4j
 public class EmployeeController {
 
 	private EmployeeService employeeService;
-
-	private Logger log = LoggerFactory.getLogger(EmployeeController.class);
 
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;

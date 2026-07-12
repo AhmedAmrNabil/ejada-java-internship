@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.ConstraintViolationException.ConstraintKind;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +18,11 @@ import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.EmployeeRepository;
 import com.global.hr.specification.EmployeeSpecifications;
 
-@Service
-public class EmployeeService {
-	private Logger log = LoggerFactory.getLogger(EmployeeService.class);
+import lombok.extern.slf4j.Slf4j;
 
+@Service
+@Slf4j
+public class EmployeeService {
 	private EmployeeRepository employeeRepository;
 
 	public EmployeeService(EmployeeRepository employeeRepository) {

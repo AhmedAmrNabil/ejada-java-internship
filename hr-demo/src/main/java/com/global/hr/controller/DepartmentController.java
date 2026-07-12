@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 import java.util.List;
@@ -28,17 +29,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Tag(name = "Department Management", description = "APIs for managing departments")
 @RestController
 @RequestMapping("/departments")
+@Slf4j
 public class DepartmentController {
 
 	private DepartmentService departmentService;
-
-	private Logger log = LoggerFactory.getLogger(DepartmentController.class);
 
 	public DepartmentController(DepartmentService departmentService) {
 		this.departmentService = departmentService;
