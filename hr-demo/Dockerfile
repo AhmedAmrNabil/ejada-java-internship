@@ -30,9 +30,14 @@ RUN jlink \
 
 FROM alpine:3.24
 WORKDIR /app
-ENV JAVA_HOME=/user/java/jdk25
+ENV JAVA_HOME=/usr/java/jdk25
 ENV PATH=$JAVA_HOME/bin:$PATH
 COPY --from=build /jre $JAVA_HOME
 COPY --from=build /app/target/app.jar app.jar
+RUN addgroup -S app && adduser -S app -G app
+USER app
 EXPOSE 8080
+EXPOSE 9090
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s \
+	CMD wget -qO- http://localhost:9090/actuator/health || exit 1
 ENTRYPOINT ["java", "-jar", "app.jar"]
