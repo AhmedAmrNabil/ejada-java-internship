@@ -20,6 +20,7 @@ services:
       - "8080:8080"
       - "9090:9090"
     environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
       - DB_HOST=db
       - DB_PORT=1521
       - DB_SERVICE_NAME=${DB_SERVICE_NAME}

@@ -1,0 +1,27 @@
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "health"
+  endpoint:
+    health:
+      show-details: never
+
+spring:
+  devtools:
+    add-properties: false
+    restart:
+      enabled: false
+
+  sql:
+    init:
+      mode: never
