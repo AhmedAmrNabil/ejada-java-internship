@@ -4,6 +4,6 @@ public record EmployeeFilter(
 		String firstName,
 		String lastName,
 		String email,
-		String departmentId,
+		Long departmentId,
 		String departmentName) {
 }
