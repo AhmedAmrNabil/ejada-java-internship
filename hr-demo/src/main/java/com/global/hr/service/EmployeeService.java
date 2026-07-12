@@ -12,11 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.global.hr.dto.request.CreateEmployeeRequest;
+import com.global.hr.dto.request.EmployeeFilter;
 import com.global.hr.entity.Department;
 import com.global.hr.entity.Employee;
 import com.global.hr.error.DuplicateResourceException;
 import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.EmployeeRepository;
+import com.global.hr.specification.EmployeeSpecifications;
 
 @Service
 public class EmployeeService {
@@ -84,14 +86,9 @@ public class EmployeeService {
 		return employeeRepository.findByFirstName(firstName);
 	}
 
-	public List<Employee> findAll() {
-		log.info("Finding all employees");
-		return employeeRepository.findAll();
-	}
-
-	public Page<Employee> findAll(Pageable pageable) {
+	public Page<Employee> findAll(EmployeeFilter filter, Pageable pageable) {
 		log.info("Finding all employees with pagination: {}", pageable);
-		return employeeRepository.findAll(pageable);
+		return employeeRepository.findAll(EmployeeSpecifications.withFilter(filter), pageable);
 	}
 
 	public Page<Employee> findByDepartmentId(long departmentId, Pageable pageable) {
