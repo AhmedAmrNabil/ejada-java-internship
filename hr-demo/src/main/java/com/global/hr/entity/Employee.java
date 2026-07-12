@@ -3,17 +3,19 @@ package com.global.hr.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(name = "Employee", description = "Represents an employee in the organization")
-@Table("EMPLOYEES")
+@Table(name = "EMPLOYEES")
+@Entity
 public class Employee {
 	@Id
-	@Column("EMPLOYEE_ID")
+	@Column(name = "EMPLOYEE_ID")
 	private long id;
 	private String firstName;
 	private String lastName;
