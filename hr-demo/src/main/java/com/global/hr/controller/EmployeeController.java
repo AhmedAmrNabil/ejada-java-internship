@@ -17,6 +17,8 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Tag(name = "Employee Management", description = "APIs for managing employees")
 @RestController
 @RequestMapping("/employees")
@@ -33,14 +38,17 @@ public class EmployeeController {
 
 	private EmployeeService employeeService;
 
+	private Logger log = LoggerFactory.getLogger(EmployeeController.class);
+
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
 
 	@Operation(summary = "Get all employees")
 	@GetMapping
-	public ResponseEntity<List<Employee>> getEmployees() {
-		return ResponseEntity.ok(employeeService.findAll());
+	public ResponseEntity<Page<Employee>> getEmployees(Pageable pageable) {
+		log.info("Fetching employees with pagination: {}", pageable);
+		return ResponseEntity.ok(employeeService.findAll(pageable));
 	}
 
 	@Operation(summary = "Get employee by ID")
