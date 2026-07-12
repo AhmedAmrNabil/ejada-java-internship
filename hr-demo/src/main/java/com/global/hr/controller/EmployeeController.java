@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
@@ -35,19 +36,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/employees")
 @Slf4j
+@RequiredArgsConstructor
 public class EmployeeController {
 
-	private EmployeeService employeeService;
+	private final EmployeeService employeeService;
 
-	public EmployeeController(EmployeeService employeeService) {
-		this.employeeService = employeeService;
-	}
-
-	@Operation(summary = "Get all employees")	
+	@Operation(summary = "Get all employees")
 	@GetMapping
 	public ResponseEntity<Page<Employee>> getEmployees(@ModelAttribute EmployeeFilter filter, Pageable pageable) {
 		log.info("Fetching employees with pagination: {}", pageable);
-		return ResponseEntity.ok(employeeService.findAll(filter,pageable));
+		return ResponseEntity.ok(employeeService.findAll(filter, pageable));
 	}
 
 	@Operation(summary = "Get employee by ID")

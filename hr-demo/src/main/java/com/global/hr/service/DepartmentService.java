@@ -13,17 +13,15 @@ import com.global.hr.error.DuplicateResourceException;
 import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.DepartmentRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class DepartmentService {
 
-	private DepartmentRepository departmentRepository;
-
-	public DepartmentService(DepartmentRepository departmentRepository) {
-		this.departmentRepository = departmentRepository;
-	}
+	private final DepartmentRepository departmentRepository;
 
 	public void deleteDepartmentById(long id) {
 		log.info("Deleting department with id: {}", id);

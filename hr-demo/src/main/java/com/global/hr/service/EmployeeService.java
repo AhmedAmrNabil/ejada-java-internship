@@ -18,16 +18,14 @@ import com.global.hr.error.ResourceNotFoundException;
 import com.global.hr.repository.EmployeeRepository;
 import com.global.hr.specification.EmployeeSpecifications;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class EmployeeService {
-	private EmployeeRepository employeeRepository;
-
-	public EmployeeService(EmployeeRepository employeeRepository) {
-		this.employeeRepository = employeeRepository;
-	}
+	private final EmployeeRepository employeeRepository;
 
 	public void deleteEmployeeById(long id) {
 		log.info("Deleting employee with id: {}", id);
