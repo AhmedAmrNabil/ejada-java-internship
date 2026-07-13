@@ -29,7 +29,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - hr-demo-logs:/app/logs
     restart: unless-stopped
 
 volumes:
   db-data:
+  hr-demo-logs:
