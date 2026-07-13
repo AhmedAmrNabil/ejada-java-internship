@@ -15,7 +15,9 @@ DayX/
 ├── Main.java   # the code for that day
 └── Justfile    # compile & run commands
 ```
+
 Starting from Day 6, work will move to the `hr-demo/` Maven project instead of a new `DayX/` folder each day, as Day6 is the starter template for the Spring Boot project. All subsequent days will iterate on it rather than creating new top-level folders:
+
 ```
 hr-demo/
 ├── pom.xml
@@ -44,14 +46,17 @@ As we get more advanced, we will swich from a single java file to multiple ones 
 
 ## Progress log
 
-| Day | Topic                                                                                                                          | Notes                                                                                           |
-| --- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| 1   | Basic Java syntax (variables, data types, arrays, strings)                                                                     | Created a simple student managment sytem in cli                                                 |
-| 2   | Object-oriented programming (static members, encapsulation, inheritance, polymorphism, abstract classes, interfaces, packages) | Built a library management system and an employee hierarchy with polymorphic salary calculation |
-| 3   | Exception handling, collection api,stream api, threads and synchronizations                                                    | Built a bank CLI with custom exceptions and a tiny tcp server                                   |
-| 4   | SQL                                                                                                                            | main.sql file to test sql queries and DDL,DML statemets                                         |
-| 5   | SQL functions, constraints, joins, subqueries, and set operators                                                               | Expanded the SQL practice scripts with more advanced query patterns                             |
-| 6   | Java web frameworks, Servlets, Spring framework and Spring Boot                                                                | Intilized Springboot template with logging,i18n and monitoring                                  |
+| Day | Topic                                                                                                                            | Notes                                                                                           |
+| --- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 1   | Basic Java syntax (variables, data types, arrays, strings)                                                                       | Created a simple student managment sytem in cli                                                 |
+| 2   | Object-oriented programming (static members, encapsulation, inheritance, polymorphism, abstract classes, interfaces, packages)   | Built a library management system and an employee hierarchy with polymorphic salary calculation |
+| 3   | Exception handling, collection api,stream api, threads and synchronizations                                                      | Built a bank CLI with custom exceptions and a tiny tcp server                                   |
+| 4   | SQL                                                                                                                              | main.sql file to test sql queries and DDL,DML statemets                                         |
+| 5   | SQL functions, constraints, joins, subqueries, and set operators                                                                 | Expanded the SQL practice scripts with more advanced query patterns                             |
+| 6   | Java web frameworks, Servlets, Spring framework and Spring Boot                                                                  | Intilized Springboot template with logging,i18n and monitoring                                  |
+| 7   | JDBC, persistance, Spring Data JDBC, REST APIs, Jackson, Service Layer, Exception Handling, API Documentation, REST Client & AOP | Added a simple REST API with CRUD operations for Employee entity                                |
+| 8   | JPA/Hibernate, Spring Data JPA, Validation, Specifications, DTOs, Lombok & MapStruct                                             | Added JPA/Hibernate support for Employee entity and added Department entity with relationships  |
+| 9   | JPA best practices and tests                                                                                                     | Added sample unit tests for employee service,repo and controller                                |
 
 ## Setup
 
