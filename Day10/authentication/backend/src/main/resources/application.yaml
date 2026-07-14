@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+app:
+  jwt:
+    access-token-secret: ${JWT_SECRET}
+    refresh-token-secret: ${JWT_REFRESH_SECRET}
+    access-token-expiration: 10000 # 10 seconds to test
+    refresh-token-expiration: 604800000 # 7 days
+
+spring:
+  application.name: authentication
+  datasource:
+    url: jdbc:oracle:thin:@${DB_HOST}:${DB_PORT}/${DB_SERVICE_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 60000
+      max-lifetime: 1800000 # 30 min — matches Hikari default, comfortably > keepaliveTime
+      idle-timeout: 600000 # 10 min is more typical too; 60s means idle connections get culled almost immediately
+
+  jpa:
+    defer-datasource-initialization: true
+    open-in-view: true
+    hibernate.ddl-auto: create-drop
+    properties:
+      hibernate:
+        "[format_sql]": true
+        "[jdbc.fetch_size]": 50
+
+  sql.init:
+    mode: always # disable auto schema creation as we are migrating to jpa
+    separator: "/"
+
+  messages.basename: "i18n/messages, config.i18n.messages"
+  devtools.restart.enabled: true
+  web.error.include-stacktrace: never
+  h2.console.enabled: false
+
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){faint} %clr(%5p) %clr(%-29.29logger{29}){cyan}: %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 10
+  level:
+    "[org.springframework.jdbc.core]": TRACE
+    "[org.hibernate.SQL]": DEBUG
+    "[org.hibernate]": INFO
+    "[org.springframework.security]": DEBUG
+
+management:
+  server:
+    port: 9090
+  endpoints.web.exposure.include:
+    - "*"
