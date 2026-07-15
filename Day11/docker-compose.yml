@@ -1,0 +1,62 @@
+services:
+  discovery-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: ./discovery-server
+        APP_PORT: 8761
+        MGMT_PORT: 8761
+    ports:
+      # this is exposed only for testing purposes, in production it should be hidden behind a firewall
+      - "8761:8761"
+    environment:
+      - EUREKA_HOSTNAME=discovery-server
+
+  movie-catalog-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: ./movie-catalog-service
+        APP_PORT: 8081
+        MGMT_PORT: 9090
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_HOSTNAME=discovery-server
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      movie-info-service:
+        condition: service_started
+      ratings-data-service:
+        condition: service_started
+
+  movie-info-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: ./movie-info-service
+        APP_PORT: 8082
+        MGMT_PORT: 9090
+    environment:
+      - EUREKA_HOSTNAME=discovery-server
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+
+  ratings-data-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_DIR: ./ratings-data-service
+        APP_PORT: 8083
+        MGMT_PORT: 9090
+    environment:
+      - EUREKA_HOSTNAME=discovery-server
+    depends_on:
+      discovery-server:
+        condition: service_healthy
