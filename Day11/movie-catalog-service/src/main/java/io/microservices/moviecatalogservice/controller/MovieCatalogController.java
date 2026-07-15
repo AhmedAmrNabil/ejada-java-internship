@@ -23,17 +23,16 @@ public class MovieCatalogController {
 	@GetMapping("/{userId}")
 	public List<CatalogItem> getCatalog(@PathVariable String userId) {
 		UserRatingsResponse ratings = restClient.get()
-				.uri("http://localhost:8083/api/v1/ratingsdata/user/" + userId)
+				.uri("http://ratings-data-service/api/v1/ratingsdata/user/" + userId)
 				.retrieve()
 				.body(UserRatingsResponse.class);
 
 		return ratings.ratings().stream().map(rating -> {
 			Movie movie = restClient.get()
-					.uri("http://localhost:8082/api/v1/movies/" + rating.getMovieId())
+					.uri("http://movie-info-service/api/v1/movies/" + rating.getMovieId())
 					.retrieve()
 					.body(Movie.class);
 			return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
 		}).toList();
 	}
-
 }
