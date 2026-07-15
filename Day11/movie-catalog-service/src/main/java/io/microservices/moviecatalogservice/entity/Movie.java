@@ -1,4 +1,4 @@
-package io.microservices.movieinfoservice.entity;
+package io.microservices.moviecatalogservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,3 +12,4 @@ public class Movie {
 	private String name;
 	private String description;
 }
+
