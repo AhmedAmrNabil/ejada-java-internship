@@ -1,0 +1,13 @@
+# Compile TypeScript files to bin/
+compile:
+    @echo "Compiling TypeScript files..."
+    @tsc --outDir bin *.ts
+
+# Run the compiled main.js from bin/
+[default]
+run: compile
+    @node bin/main.js
+
+# Clean the bin directory
+clean:
+    @rm -rf bin
