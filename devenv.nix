@@ -20,9 +20,15 @@ in
   dotenv.enable = true;
   languages.java = {
     enable = true;
-    jdk.package = pkgs.jdk25;
+    jdk.package = pkgs.jdk17;
     maven.enable = true;
   };
+
+  languages.javascript = {
+    enable = true;
+    pnpm.enable = true;
+  };
+  languages.typescript.enable = true;
 
   processes.oracle = {
     exec = ''
@@ -58,12 +64,26 @@ in
     if [ ! -f .vscode/settings.json ]; then echo '{}' > .vscode/settings.json; fi
 
     ${pkgs.jq}/bin/jq \
-      --arg jdkPath "${pkgs.jdk25}/lib/openjdk" \
+      --arg jdkPath "${pkgs.jdk17}/lib/openjdk" \
+      --arg jdk25Path "${pkgs.jdk25}/lib/openjdk" \
       '.["java.configuration.runtimes"] = [
-        { "name": "JavaSE-25", "path": $jdkPath }
+        { "name": "JavaSE-17", "path": $jdkPath },
+        { "name": "JavaSE-25", "path": $jdk25Path }
       ]
-      | .["java.jdt.ls.java.home"] = $jdkPath
-      | .["spring-boot.ls.java.home"] = $jdkPath
+      | .["java.jdt.ls.java.home"] = $jdk25Path
+      | .["sonarlint.pathToNodeExecutable"] = "${pkgs.nodejs}/bin/node"
+      | .["sonarlint.ls.javaHome"] = $jdk25Path
+      | .["sonarlint.ls.vmargs"] = [
+          "-XX:+UseParallelGC",
+          "-XX:GCTimeRatio=4",
+          "-XX:AdaptiveSizePolicyWeight=90",
+          "-Dsun.zip.disableMemoryMapping=true",
+          "-Xmx8G",
+          "-Xms100m",
+          "-Xlog:disable",
+          "-XX:ActiveProcessorCount=1"
+        ]
+      | .["spring-boot.ls.java.home"] = $jdk25Path
       | .["spring-boot.ls.java.vmargs"] = [
           "-XX:+UseParallelGC",
           "-XX:GCTimeRatio=4",
