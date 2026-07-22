@@ -1,0 +1,8 @@
+<button (click)="toggleTheme()"
+  class="bg-primary text-secondary size-8 flex justify-center items-center rounded-full absolute top-4 right-4">
+  @if (isDarkTheme()) {
+  <ng-icon name="lucideSun" class="w-6 h-6"></ng-icon>
+  } @else {
+  <ng-icon name="lucideMoon" class="w-6 h-6"></ng-icon>
+  }
+</button>

@@ -1,0 +1,18 @@
+<table class="table-auto p-4 rounded-md overflow-clip m-4">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">Name</th>
+      <th class="px-4 py-2">Description</th>
+      <th class="px-4 py-2">Price</th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-border">
+    @for (product of productsList; track product.id) {
+    <tr class="hover:bg-muted/50">
+      <td class="px-4 py-2">{{ product.name }}</td>
+      <td class="px-4 py-2">{{ product.description }}</td>
+      <td class="px-4 py-2">${{ product.price }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
