@@ -61,6 +61,7 @@ As we get more advanced, we will swich from a single java file to multiple ones 
 | 11    | Spring Cloud, Microservices, Eureka Discovery Server, Hystrix, Circuit Breaker Pattern                                           | Created a small microservices system with 4 services and a discovery server using Spring Cloud and Docker Compose |
 | 12-15 | Ecommerce Project                                                                                                                | Work in progress: [link](https://github.com/AhmedAmrNabil/ejada-ecommerce)                                        |
 | 16    | TypeScript fundamentals, Angular bootstrapping                                                                                   | Created a simple Angular project with a products list component and a theme toggle component                      |
+| 17    | Angular routing, components, services, and HTTP client                                                                           | Added a post detail component and a posts service to fetch data from a REST API                                   |
 
 ## Setup
 
